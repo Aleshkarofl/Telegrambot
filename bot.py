@@ -7,7 +7,7 @@ from telegram.ext import Application
 ssl_context = ssl.create_default_context(cafile=certifi.where())
 
 # Создаем объект запроса с нужным SSL контекстом
-request = HTTPXRequest(ssl_context=ssl_context)
+request = HTTPXRequest()
 
 # Подключаем бота с учетом SSL
 app = Application.builder().token(TOKEN).request(request).build()
