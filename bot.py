@@ -1,34 +1,30 @@
+import os
 import ssl
 import certifi
-from telegram.request import HTTPXRequest
-from telegram.ext import Application
-
-# Устанавливаем параметры SSL
-ssl_context = ssl.create_default_context(cafile=certifi.where())
-
-# Создаем объект запроса с нужным SSL контекстом
-request = HTTPXRequest()
-
-# Подключаем бота с учетом SSL
-app = Application.builder().token(TOKEN).request(request).build()
-
+from dotenv import load_dotenv  # Загружаем dotenv
 
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, filters, MessageHandler, CallbackContext
-from dotenv import load_dotenv
-import os
+from telegram.request import HTTPXRequest  # Импортируем HTTPXRequest
 
-load_dotenv()  # Загружаем переменные из .env
-TOKEN = os.getenv("BOT_TOKEN")
+# Загружаем переменные окружения
+load_dotenv()
+TOKEN = os.getenv("BOT_TOKEN")  # Получаем токен из .env
 
 if not TOKEN:
     raise ValueError("❌ Ошибка: Переменная окружения BOT_TOKEN не найдена!")
 
+# Устанавливаем параметры SSL (если это требуется)
+ssl_context = ssl.create_default_context(cafile=certifi.where())
 
-app = Application.builder().token(TOKEN).build()
+# Создаем объект запроса (если нужен кастомный запрос)
+request = HTTPXRequest()
 
+# Создаем объект приложения (Оставляем ТОЛЬКО ОДИН!)
+app = Application.builder().token(TOKEN).request(request).build()
 
-app = Application.builder().token(TOKEN).build()
+# Список разрешенных пользователей
+ALLOWED_USERS = {7293170941, 875693247, 415437436, 5626401090}  # Замени на реальные Telegram ID
 
 
 
