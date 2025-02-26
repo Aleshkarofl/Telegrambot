@@ -15,12 +15,15 @@ app = Application.builder().token(TOKEN).request(request).build()
 
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, filters, MessageHandler, CallbackContext
+from dotenv import load_dotenv
 import os
 
+load_dotenv()  # Загружаем переменные из .env
 TOKEN = os.getenv("BOT_TOKEN")
 
 if not TOKEN:
     raise ValueError("❌ Ошибка: Переменная окружения BOT_TOKEN не найдена!")
+
 
 app = Application.builder().token(TOKEN).build()
 
