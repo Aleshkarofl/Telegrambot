@@ -1,6 +1,9 @@
-import os
-import ssl
 import certifi
+import ssl
+import telegram.request
+
+telegram.request._httpxrequest.DEFAULT_SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
+
 from dotenv import load_dotenv  # Загружаем dotenv
 
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
