@@ -1,10 +1,15 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, filters, MessageHandler, CallbackContext
 import os
-import os
 from telegram.ext import Application
 
 TOKEN = os.getenv("7088103517:AAG3KeeSY66Dc8IA0WEgN10zJXuhpiAj7zc")
+
+if not TOKEN:
+    raise ValueError("❌ Ошибка: Переменная окружения BOT_TOKEN не найдена!")
+
+app = Application.builder().token(TOKEN).build()
+
 
 if not TOKEN:
     raise ValueError("❌ Ошибка: Переменная окружения BOT_TOKEN не найдена!")
