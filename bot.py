@@ -103,7 +103,11 @@ def main():
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
     
     print("Бот запущений...")
-    app.run_polling()
+    import ssl
+import telegram.request
+
+telegram.request._httpxrequest.DEFAULT_SSL_CONTEXT = ssl._create_unverified_context()
+app.run_polling()
 
 if __name__ == '__main__':
     main()
