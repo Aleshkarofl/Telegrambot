@@ -1,3 +1,11 @@
+import ssl
+import certifi
+import telegram
+
+# Устанавливаем параметры для работы с SSL
+ssl_context = ssl.create_default_context(cafile=certifi.where())
+telegram.request._httpxrequest.HTTPXRequest.ssl_context = ssl_context
+
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, filters, MessageHandler, CallbackContext
 import os
