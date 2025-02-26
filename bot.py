@@ -1,10 +1,17 @@
 import ssl
 import certifi
-import telegram
+from telegram.request import HTTPXRequest
+from telegram.ext import Application
 
-# Устанавливаем параметры для работы с SSL
+# Устанавливаем параметры SSL
 ssl_context = ssl.create_default_context(cafile=certifi.where())
-telegram.request._httpxrequest.HTTPXRequest.ssl_context = ssl_context
+
+# Создаем объект запроса с нужным SSL контекстом
+request = HTTPXRequest(ssl_context=ssl_context)
+
+# Подключаем бота с учетом SSL
+app = Application.builder().token(TOKEN).request(request).build()
+
 
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, filters, MessageHandler, CallbackContext
